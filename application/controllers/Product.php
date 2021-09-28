@@ -58,9 +58,10 @@ class Product extends CI_Controller {
 	public function add_new()
 	{
 		$this->form_validation->set_rules('prod_name', 'Product Name', 'trim|required|callback_regexValidate|is_unique[products.product_name]',  array('is_unique' => 'This %s already exists.'));
-		$this->form_validation->set_rules('prod_exp', 'Expiry Date', 'trim|required');
-		$this->form_validation->set_rules('weight', 'Product Amount', 'trim|required|numeric');
-		$this->form_validation->set_rules('price', 'Product Quantity', 'trim|required|numeric');
+		$this->form_validation->set_rules('p_price', 'Product Amount', 'trim|required|numeric');
+		$this->form_validation->set_rules('stock_q', 'Product Amount', 'trim|required|numeric');
+		$this->form_validation->set_rules('product_exp', 'Expiry Date', 'trim|required');
+		$this->form_validation->set_rules('price_total', 'Product Quantity', 'trim|required|numeric');
 		
 		if( $this->input->post('add_product') != NULL )
 		{
@@ -79,19 +80,21 @@ class Product extends CI_Controller {
      			$postData = $this->input->post();
 				$data = array(
 					'product_name' => strtoupper($postData['prod_name']),
-					'prod_exp' => strtoupper($postData['prod_exp']),					
-					'weight' => $postData['weight'],											
-					'unit_price' => $postData['price'],				
-					'price' => $postData['price_total'],				
+					'price' => $postData['p_price'],				
+					'stock' => strtoupper($postData['stock_q']),					
+					'prod_exp' => $postData['product_exp'],											
+					'total_amount' => $postData['price_total'],				
 				);
 
-				$data2 = array(
-					'product_id' => $postData['id'],
-					'stock_qty' => $postData['stock_q'],
-					'purchase_rate' => $postData['price'],
-				);
 				$insert = $this->Product_model->add_product($data);
-				$Store = $this->Stock_model->add_record($data2);
+				// $product_id = $this->db->insert_id();
+				// $data2 = array(
+				// 	'product_id' => $product_id,
+				// 	'stock_qty' => $postData['stock_q'],
+				// 	'purchase_rate' => $postData['price'],
+				// );
+				//  $Store = $this->Stock_model->add_record($data2);
+
 				if($insert > 0)
 				{	
 					$this->session->set_flashdata('success', 'Product added successfully.');
@@ -149,11 +152,11 @@ class Product extends CI_Controller {
 		{
 			// POST data
      		$postData = $this->input->post();
-			
-			$this->form_validation->set_rules('prod_name', 'Product Name', 'trim|required|callback_regexValidate|edit_unique[products.product_name.'.$prod_id.']');
-			$this->form_validation->set_rules('prod_exp', 'Expiry Date', 'trim|required');
-			$this->form_validation->set_rules('weight', 'Product Amount', 'required|numeric');
-			$this->form_validation->set_rules('price', 'Product Quantity', 'required|numeric');	
+			 $this->form_validation->set_rules('prod_name', 'Product Name', 'trim|required|callback_regexValidate|edit_unique[products.product_name.'.$prod_id.']');
+			 $this->form_validation->set_rules('p_price', 'Product Amount', 'trim|required|numeric');
+			 $this->form_validation->set_rules('stock_q', 'Product in Stock', 'trim|required|numeric');
+			 $this->form_validation->set_rules('product_exp', 'Expiry Date', 'trim|required');
+			 $this->form_validation->set_rules('price_total', 'Product Quantity', 'trim|required|numeric');
      		
 			if ($this->form_validation->run() == false)
 			{			
@@ -171,10 +174,10 @@ class Product extends CI_Controller {
 			{
 				$data = array(
 					'product_name' => strtoupper($postData['prod_name']),
-					'prod_exp' => strtoupper($postData['prod_exp']),						
-					'weight' => $postData['weight'],											
-					'unit_price' => $postData['price'],				
-					'price' => $postData['price_total'],				
+					'price' => $postData['p_price'],				
+					'stock' => strtoupper($postData['stock_q']),					
+					'prod_exp' => $postData['product_exp'],											
+					'total_amount' => $postData['price_total'],					
 				);
 				$prod_id = $postData['prod_id'];
 

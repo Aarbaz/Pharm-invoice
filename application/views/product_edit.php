@@ -26,35 +26,35 @@
 
             <div class="form-group">
               <div class="col-sm-5">                
-                <input type="text" class="form-control" id="weight" name="weight" placeholder="Amount" value="<?php echo set_value('weight', $prod->weight); ?>">
+                <input type="text" class="form-control" id="p_price" name="p_price" placeholder="Price" value="<?php echo set_value('price', $prod->price); ?>">
               </div>
-              <div class="col-sm-6"> <?php echo form_error('weight', '<p class="text-danger">', '</p>'); ?></div>
+              <div class="col-sm-6"> <?php echo form_error('p_price', '<p class="text-danger">', '</p>'); ?></div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-5">                
-                <input type="text" class="form-control" id="price" name="price" placeholder="Quantity" value="<?php echo set_value('price', $prod->unit_price);?>">
+                <input type="text" class="form-control" id="stock_q" name="stock_q" placeholder="Stock" value="<?php echo set_value('stock', $prod->stock);?>">
               </div>
-              <div class="col-sm-6"> <?php echo form_error('price', '<p class="text-danger">', '</p>'); ?></div>
+              <div class="col-sm-6"> <?php echo form_error('stock_q', '<p class="text-danger">', '</p>'); ?></div>
             </div>   
 
             <div class="form-group">
               <div class="col-sm-5">                
-                <input type="text" class="form-control" name="prod_exp" placeholder="Expiry Date" value="<?php echo set_value('prod_exp', $prod->prod_exp); ?>">
+                <input type="text" class="form-control" id="product_exp" name="product_exp" placeholder="Expiry Date" value="<?php echo set_value('prod_exp', $prod->prod_exp); ?>">
               </div>
-              <div class="col-sm-6"> <?php echo form_error('prod_exp', '<p class="text-danger">', '</p>'); ?></div>
+              <div class="col-sm-6"> <?php echo form_error('product_exp', '<p class="text-danger">', '</p>'); ?></div>
             </div>
 
             <div class="form-group">
               <div class="col-sm-5">
-                <input type="text" class="form-control" id="price_total" name="price_total" placeholder="Total Amount" value="<?php echo set_value('price_total', $prod->price); ?>" readonly="readonly">        
+                <input type="text" class="form-control" id="price_total" name="price_total" placeholder="Total Amount" value="<?php echo set_value('price_total', $prod->total_amount); ?>" readonly="readonly">        
               </div>
               <div class="col-sm-6"> <?php echo form_error('price_total', '<p class="text-danger">', '</p>'); ?></div>
             </div>                                      
       
           <div class="form-group">
             <div class="col-sm-5">              
-              <?php echo form_submit('edit_product','Edit Product','class="btn btn-success"'); ?>
+              <?php echo form_submit('edit_product','Edit & Save','class="btn btn-success"'); ?>
             </div>
              <div class="col-sm-6"> 
               <?php
@@ -85,9 +85,9 @@
 </div><!--close main div-->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#weight, #price').on('change', function(){
-      var qnty = $('#weight').val();
-      var rate = $('#price').val();
+    $('#stock_q, #p_price').on('change', function(){
+      var qnty = $('#stock_q').val();
+      var rate = $('#p_price').val();
       var the_amount = (qnty*rate).toFixed(2);
       $('#price_total').val(the_amount);      
     });    

@@ -32,14 +32,16 @@
 					         
 					  <tbody>
             <?php
+            
             if(isset($products)){
               $i = 1;
-              foreach ($products->result() as $row){  ?>
+              
+              foreach ($products->result() as $row ){?>
 						  <tr>
                 <td><?php echo $i; ?></td>
   							<td><?php echo $row->product_name; ?></td>
   							<td><?php echo $row->weight; ?></td>
-                <td><?php echo $row->stock_qty; ?></td> 
+                <td><?php echo $stocks; ?></td> 
                 <td><?php echo $row->prod_exp; ?></td>             
   							<td><?php echo $row->price; ?></td>  							             
                 <td>
